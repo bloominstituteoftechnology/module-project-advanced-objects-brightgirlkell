@@ -25,9 +25,25 @@
     // 🧠 The person also has an `ageGracefully` method, which increases `age` by 1 each time it's called.
     // 🧠 But there's a catch: once `age` reaches 12, the `ageGracefully` method will have no effect.
     class PeterPan {
+      constructor(name){
+        this.name = name;
+        this.age = 0;
+      }
+      ageGracefully(){
+        if(this.age < 12){
+          this.age += 1;
+        }
+      }
 
     }
+    let peter = new PeterPan("Peter");
+    peter.ageGracefully();
+    console.log(peter.age); 
 
+    for(let i=0;i<15;i++){
+      peter.ageGracefully();
+    }
+    console.log(peter.age);
     // 👉 CHALLENGE 2
     // 🧠 Build an AirPlane class. This class allows to instantiate airplanes.
     // 🧠 When instantiating a new plane using this class, we provide a string with the model of the plane.
@@ -38,8 +54,37 @@
     // 🧠 Calling `down` changes the `altitude` prop appropriately and returns the updated `altitude`.
     // 🧠 If calling `down` would cause the plane to go below altitude zero, `altitude` is set to 0 and the string "CRASH!" is returned.
     class AirPlane {
+      constructor(model) {
+    this.model = model;
+    this.altitude = 0;
+  }
 
+  up(meters) {
+    this.altitude += meters;
+    return this.altitude;
+  }
+
+  down(meters) {
+    if(this.altitude - meters < 0) {
+      this.altitude = 0;
+      return "CRASH!";
+    } else {
+      this.altitude -= meters;
+      return this.altitude;
     }
+  }
+}
+
+let plane = new AirPlane("Boeing 747");
+
+plane.up(1000);
+console.log(plane.altitude); // Outputs: 1000
+
+plane.down(500);
+console.log(plane.altitude); // Outputs: 500
+
+console.log(plane.down(600)); // Outputs: "CRASH!"
+console.log(plane.altitude); // Outputs: 0
 
     // 👉 CHALLENGE 3
     // 🧠 Build a Bulb class.
@@ -47,9 +92,33 @@
     // 🧠 The initial value of `isOn` will be the Boolean false.
     // 🧠 The methods work as one might expect, changing the value of `isOn` to the appropriate Boolean.
     // 🧠 The methods also return one of these two strings: "You turned the bulb ON", or "You turned the bulb OFF".
-    class Bulb {
+class Bulb {
+  constructor() {
+    this.isOn = false;
+  }
 
-    }
+  turnOn() {
+    this.isOn = true;
+    return "You turned the bulb ON";
+  }
+
+  turnOff() {
+    this.isOn = false;
+    return "You turned the bulb OFF";
+  }
+
+  toggle() {
+    this.isOn = !this.isOn;
+    return this.isOn ? "You turned the bulb ON" : "You turned the bulb OFF";
+  }
+}
+
+let bulb = new Bulb();
+
+console.log(bulb.turnOn());  // Outputs: "You turned the bulb ON"
+console.log(bulb.turnOff()); // Outputs: "You turned the bulb OFF"
+console.log(bulb.toggle());  // Outputs: "You turned the bulb ON"
+console.log(bulb.toggle());  // Outputs: "You turned the bulb OFF"
 
     // 👉 CHALLENGE 4
     // 🧠 Build a CountDown class that can count down starting at any number we pass to the constructor.
@@ -66,8 +135,31 @@
     //   minusThree.count() // returns null
     //   minusThree.count() // returns null
     class CountDown {
+  constructor(startNumber) {
+    this.number = startNumber;
+  }
 
+  count() {
+    if(this.number < 0) {
+      return null;
+    } else if(this.number === 0) {
+      this.number--;
+      return "Liftoff!";
+    } else {
+      return `${this.number--}!`;
     }
+  }
+}
+
+let countdown = new CountDown(5);
+
+console.log(countdown.count()); // Outputs: "5!"
+console.log(countdown.count()); // Outputs: "4!"
+console.log(countdown.count()); // Outputs: "3!"
+console.log(countdown.count()); // Outputs: "2!"
+console.log(countdown.count()); // Outputs: "1!"
+console.log(countdown.count()); // Outputs: "Liftoff!"
+console.log(countdown.count()); // Outputs: null
 
     // 🧪 TESTS, do not work below this line
     // 🧪 TESTS, do not work below this line
